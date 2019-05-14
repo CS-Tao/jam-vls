@@ -141,7 +141,7 @@ export default {
             data: [{ value: 40, name: 'km/h' }]
           },
           {
-            name: '转速',
+            name: '方向',
             type: 'gauge',
             center: ['20%', '55%'], // 默认全局居中
             radius: '75%',
@@ -181,10 +181,10 @@ export default {
             detail: {
               fontWeight: 'bolder'
             },
-            data: [{ value: 1.5, name: 'x1000 r/min' }]
+            data: [{ value: 2, name: 'x1000 r/min' }]
           },
           {
-            name: '油表',
+            name: '最高速',
             type: 'gauge',
             center: ['80%', '50%'],
             radius: '70%',
@@ -213,11 +213,11 @@ export default {
               formatter: function (v) {
                 switch (v + '') {
                   case '0':
-                    return 'E'
+                    return 'L'
                   case '1':
-                    return 'Gas'
+                    return 'Max'
                   case '2':
-                    return 'F'
+                    return 'H'
                 }
               }
             },
@@ -241,7 +241,7 @@ export default {
             data: [{ value: 0.5, name: 'gas' }]
           },
           {
-            name: '水表',
+            name: '最低速',
             type: 'gauge',
             center: ['80%', '50%'], // 默认全局居中
             radius: '70%',
@@ -265,11 +265,11 @@ export default {
               formatter: function (v) {
                 switch (v + '') {
                   case '0':
-                    return 'H'
+                    return 'L'
                   case '1':
-                    return 'Water'
+                    return 'Min'
                   case '2':
-                    return 'C'
+                    return 'H'
                 }
               }
             },

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import mapboxgl from 'mapbox-gl'
 const mapboxWorkerCount = 6
 const mapboxToken = 'pk.eyJ1IjoiY3N0YW8iLCJhIjoiY2p1eThkYjgzMHNvbzQ0cnhqd3c3OTU1biJ9.vT96vIXE74LTVV4xXrv0Zw'
 const tileUrl = 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/wuhan_taxi_speed%3Amain_with_speed_hour_Project@EPSG%3A900913@pbf'
@@ -45,14 +46,13 @@ export default {
     }
   },
   async mounted () {
-    const mapboxgl = require('mapbox-gl')
     mapboxgl.accessToken = mapboxToken
     mapboxgl.workerCount = mapboxWorkerCount
     this.map = new mapboxgl.Map({
       container: 'map-container',
-      style: 'mapbox://styles/mapbox/dark-v10',
-      center: [114.3, 30.65],
-      zoom: 10
+      style: 'mapbox://styles/cstao/cjvnekomn17g61dobaihww8d1',
+      center: [114.2, 30.5],
+      zoom: 9
     })
     this.map.addControl(new mapboxgl.NavigationControl())
     this.map.on('load', () => {

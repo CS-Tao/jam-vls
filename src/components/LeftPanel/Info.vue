@@ -32,27 +32,27 @@ export default {
       legendData: [
         {
           color: 'red',
-          value: '0 - 10'
+          value: '0 to 10'
         },
         {
           color: 'yellow',
-          value: '10 - 20'
+          value: '10 to 20'
         },
         {
           color: 'lime',
-          value: '20 - 35'
+          value: '20 to 35'
         },
         {
           color: 'cyan',
-          value: '35 - 50'
+          value: '35 to 50'
         },
         {
           color: 'royalblue',
-          value: '50 - 60'
+          value: '50 to 60'
         },
         {
           color: 'blue',
-          value: '60 以上'
+          value: '60 to 120'
         }
       ]
     }
@@ -103,11 +103,13 @@ export default {
       justify-content: space-between;
       padding: 0 40px 2px;
       .legend-key {
-        width: 100px;
-        height: 2px;
+        width: 50px;
+        height: 8px;
       }
       .legend-value {
         color: $text-color-normal;
+        font-weight: 100;
+        font-size: 14px;
       }
     }
   }

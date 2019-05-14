@@ -1,12 +1,17 @@
 <template>
   <div class="wrapper">
-    <div class="btn" @click="switchExperiment(1)">实验一</div>
-    <div class="btn" @click="switchExperiment(2)">实验二</div>
+    <div class="btn" :class="activedIndex===0?'actived':null" @click="switchExperiment(0)">实验一</div>
+    <div class="btn" :class="activedIndex===1?'actived':null" @click="switchExperiment(1)">实验二</div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      activedIndex: 0
+    }
+  },
   methods: {
     switchExperiment (index) {
       this.$emit('switchExperiment', index)
@@ -41,6 +46,9 @@ export default {
     font-weight: 400;
     cursor: pointer;
     &:hover {
+      background-color: #444;
+    }
+    &.actived {
       background-color: #444;
     }
   }

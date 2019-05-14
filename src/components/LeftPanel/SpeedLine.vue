@@ -6,19 +6,13 @@
 import echarts from 'echarts'
 import resize from '@/components/Utils/ChartResize'
 var category = []
-var dottedBase = +new Date()
 var lineData = []
 var barData = []
 
-for (var i = 0; i < 20; i++) {
-  var date = new Date(dottedBase += 3600 * 24 * 1000)
-  category.push([
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate()
-  ].join('-'))
-  var b = Math.random() * 60 + 10
-  var d = Math.random() * 60 + 10
+for (var i = 8; i < 20; i++) {
+  category.push(i > 10 ? `${i}:00` : `0${i}:00`)
+  var b = Math.random() * 3500 + 500
+  var d = Math.random() * 5000 + 1000
   barData.push(b)
   lineData.push(d + b)
 }
@@ -72,6 +66,9 @@ export default {
     },
     getOptions () {
       return {
+        grid: {
+          left: '15%'
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -79,7 +76,7 @@ export default {
           }
         },
         legend: {
-          data: ['Average speed', 'Max speed'],
+          data: ['车辆总数', '拥堵车辆数'],
           textStyle: {
             color: '#ccc'
           },
@@ -115,7 +112,7 @@ export default {
           },
           data: lineData
         }, {
-          name: 'Average speed',
+          name: '拥堵车辆数',
           type: 'bar',
           barWidth: 10,
           itemStyle: {
@@ -150,7 +147,7 @@ export default {
           z: -12,
           data: lineData
         }, {
-          name: 'Max speed',
+          name: '车辆总数',
           type: 'pictorialBar',
           symbol: 'rect',
           itemStyle: {
