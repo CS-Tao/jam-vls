@@ -4,6 +4,7 @@
 html, body {
   margin: 0;
   background-color: #000;
+  user-select: none;
   ::-webkit-scrollbar {
     width: 0;
   }

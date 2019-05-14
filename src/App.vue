@@ -3,6 +3,7 @@
     <left-panel></left-panel>
     <dashboard></dashboard>
     <time-line></time-line>
+    <switch-control></switch-control>
     <map-box class="mapbox"></map-box>
   </section>
 </template>
@@ -12,13 +13,15 @@ import MapBox from '@/components/Mapbox'
 import LeftPanel from '@/components/LeftPanel'
 import Dashboard from '@/components/Dashboard'
 import TimeLine from '@/components/TimeLine'
+import SwitchControl from '@/components/SwitchControl'
 
 export default {
   components: {
     MapBox,
     LeftPanel,
     Dashboard,
-    TimeLine
+    TimeLine,
+    SwitchControl
   }
 }
 </script>

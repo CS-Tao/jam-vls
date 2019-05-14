@@ -54,7 +54,7 @@ export default {
   opacity: $panel-opacity;
   z-index: 1;
   padding-top: 15px;
-  color: rgb(248, 248, 249);
+  color: $text-color-normal;
   box-sizing: border-box;
   & > span {
     padding: 0 15px;

@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <div id="map-container"></div>
+    <div id="legend"></div>
     <!-- <div class="control-panel">
       <b-collapse class="card">
         <div slot="trigger" slot-scope="props" class="card-header" role="button">

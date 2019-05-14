@@ -3,16 +3,19 @@
     <header class="header">
       <span>武汉市交通路网</span>
     </header>
-    <speed-line></speed-line>
+    <info/>
+    <speed-line/>
   </div>
 </template>
 
 <script>
+import Info from './LeftPanel/Info'
 import SpeedLine from './LeftPanel/SpeedLine'
 
 export default {
   components: {
-    SpeedLine
+    SpeedLine,
+    Info
   }
 }
 </script>
@@ -34,13 +37,15 @@ export default {
     padding: 14px;
     border-bottom: 1px solid rgb(64, 64, 66);
     & > span {
+      padding: 5px 8px;
+      border-radius: 2px;
       width: 50%;
       margin: 0 25%;
-      color: rgb(248, 248, 249);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
-        sans-serif;
+      color: $text-color-normal;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       font-size: 18px;
       font-weight: 900;
+      background-color: rgb(71, 178, 117);
       text-align: center;
     }
   }
