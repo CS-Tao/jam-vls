@@ -6,15 +6,11 @@
 import echarts from 'echarts'
 import resize from '@/components/Utils/ChartResize'
 var category = []
-var lineData = []
-var barData = []
+var lineData = [7020, 5345, 3256, 3369, 4569, 3696, 2944, 5247, 5528, 6398, 7125, 5879]
+var barData = [3658, 1589, 555, 986, 1520, 2541, 1422, 2554, 2866, 3666, 4021, 2315]
 
 for (var i = 8; i < 20; i++) {
   category.push(i > 10 ? `${i}:00` : `0${i}:00`)
-  var b = Math.random() * 3500 + 500
-  var d = Math.random() * 5000 + 1000
-  barData.push(b)
-  lineData.push(d + b)
 }
 
 export default {

@@ -63,12 +63,12 @@ export default {
         },
         series: [
           {
-            name: '速度',
+            name: '平均速度',
             type: 'gauge',
             z: 3,
             min: 0,
-            max: 220,
-            splitNumber: 11,
+            max: 120,
+            splitNumber: 12,
             radius: '80%',
             axisLine: {
               // 坐标轴线
@@ -108,15 +108,15 @@ export default {
               color: '#eee'
             },
             detail: {
-              formatter: function (value) {
-                value = (value + '').split('.')
-                value.length < 2 && value.push('00')
-                return (
-                  ('00' + value[0]).slice(-2) +
-                  '.' +
-                  (value[1] + '00').slice(0, 2)
-                )
-              },
+              // formatter: function (value) {
+              //   value = (value + '').split('.')
+              //   value.length < 2 && value.push('00')
+              //   return (
+              //     ('00' + value[0]).slice(-2) +
+              //     '.' +
+              //     (value[1] + '00').slice(0, 2)
+              //   )
+              // },
               fontWeight: 'bolder',
               borderRadius: 3,
               backgroundColor: '#444',
@@ -126,7 +126,6 @@ export default {
               shadowOffsetX: 0,
               shadowOffsetY: 3,
               borderWidth: 2,
-              textBorderColor: '#000',
               textBorderWidth: 2,
               textShadowBlur: 2,
               textShadowColor: '#fff',
@@ -134,62 +133,19 @@ export default {
               textShadowOffsetY: 0,
               fontFamily: 'Arial',
               fontSize: 12,
-              width: 18,
+              width: 16,
               color: '#eee',
               rich: {}
             },
-            data: [{ value: 40, name: 'km/h' }]
-          },
-          {
-            name: '方向',
-            type: 'gauge',
-            center: ['20%', '55%'], // 默认全局居中
-            radius: '75%',
-            min: 0,
-            max: 7,
-            endAngle: 45,
-            splitNumber: 7,
-            axisLine: {
-              // 坐标轴线
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                width: 4
-              }
-            },
-            axisTick: {
-              // 坐标轴小标记
-              length: 8, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle控制线条样式
-                color: 'auto'
-              }
-            },
-            splitLine: {
-              // 分隔线
-              length: 10, // 属性length控制线长
-              lineStyle: {
-                // 属性lineStyle（详见lineStyle）控制线条样式
-                color: 'auto'
-              }
-            },
-            pointer: {
-              width: 4
-            },
-            title: {
-              offsetCenter: [0, '-30%']
-            },
-            detail: {
-              fontWeight: 'bolder'
-            },
-            data: [{ value: 2, name: 'x1000 r/min' }]
+            data: [{ value: 35.2, name: 'km/h' }]
           },
           {
             name: '最高速',
             type: 'gauge',
-            center: ['80%', '50%'],
+            center: ['80%', '70%'],
             radius: '70%',
             min: 0,
-            max: 2,
+            max: 120,
             startAngle: 135,
             endAngle: 45,
             splitNumber: 2,
@@ -214,9 +170,9 @@ export default {
                 switch (v + '') {
                   case '0':
                     return 'L'
-                  case '1':
+                  case '60':
                     return 'Max'
-                  case '2':
+                  case '120':
                     return 'H'
                 }
               }
@@ -238,17 +194,17 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 0.5, name: 'gas' }]
+            data: [{ value: 82.1, name: '最高速' }]
           },
           {
             name: '最低速',
             type: 'gauge',
-            center: ['80%', '50%'], // 默认全局居中
+            center: ['20%', '70%'],
             radius: '70%',
             min: 0,
-            max: 2,
-            startAngle: 315,
-            endAngle: 225,
+            max: 120,
+            startAngle: 135,
+            endAngle: 45,
             splitNumber: 2,
             axisLine: {
               // 坐标轴线
@@ -259,16 +215,21 @@ export default {
             },
             axisTick: {
               // 坐标轴小标记
-              show: false
+              splitNumber: 5,
+              length: 8, // 属性length控制线长
+              lineStyle: {
+                // 属性lineStyle控制线条样式
+                color: 'auto'
+              }
             },
             axisLabel: {
               formatter: function (v) {
                 switch (v + '') {
                   case '0':
                     return 'L'
-                  case '1':
+                  case '60':
                     return 'Min'
-                  case '2':
+                  case '120':
                     return 'H'
                 }
               }
@@ -290,7 +251,7 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 0.5, name: 'gas' }]
+            data: [{ value: 10, name: '最低速' }]
           }
         ]
       }
