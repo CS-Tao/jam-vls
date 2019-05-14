@@ -1,0 +1,17 @@
+@import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css');
+@import "./var.scss";
+
+html, body {
+  margin: 0;
+  background-color: #000;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+a.mapboxgl-ctrl-logo {
+  margin-left: 350px;
+}
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
