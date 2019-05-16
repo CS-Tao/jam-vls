@@ -41,7 +41,6 @@ export default {
     height: 60px;
     line-height: 60px;
     text-align: center;
-    border-radius: inherit;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -50,6 +49,14 @@ export default {
     }
     &.actived {
       background-color: #444;
+    }
+    &:first-child {
+      border-radius: inherit;
+      border-bottom-left-radius: 0;
+    }
+    &:last-child {
+      border-radius: inherit;
+      border-top-left-radius: 0;
     }
   }
   z-index: 1;

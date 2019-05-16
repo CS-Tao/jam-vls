@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/var.scss";
+@import '@/styles/var.scss';
 .wrapper {
   position: fixed;
   top: $leftpanel-height;

@@ -1,5 +1,5 @@
  <template>
-  <div :class="className" :id="id" :style="{height:height,width:width}"></div>
+  <div class="speedline" :id="id" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
@@ -16,10 +16,6 @@ for (var i = 8; i < 20; i++) {
 export default {
   mixins: [resize],
   props: {
-    className: {
-      type: String,
-      default: 'chart'
-    },
     id: {
       type: String,
       default: 'speedline'
@@ -164,4 +160,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.speedline {
+  min-height: 350px;
+}
 </style>
