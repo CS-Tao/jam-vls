@@ -4,7 +4,7 @@
     <dashboard></dashboard>
     <time-line></time-line>
     <switch-control></switch-control>
-    <map-box class="mapbox"></map-box>
+    <map-box></map-box>
   </section>
 </template>
 
@@ -29,9 +29,5 @@ export default {
 <style lang="scss" scpoed>
 .main {
   min-height: 100vh;
-  .mapbox {
-    width: 100vw;
-    height: 100vh;
-  }
 }
 </style>

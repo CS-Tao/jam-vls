@@ -9,7 +9,7 @@
         <vue-slider
           class="slider"
           v-model="sliderValue"
-          :data="['A', 'B', 'C', 'D']"
+          :data="sliderData"
           :railStyle="{'backgroundColor': '#555', 'borderRadius': '4px'}"
           :processStyle="{'backgroundColor': '#050505'}"
           :labelStyle="{'backgroundColor': '#555'}"
@@ -31,7 +31,18 @@ export default {
   data () {
     return {
       pause: true,
-      sliderValue: 1
+      sliderValue: 0
+    }
+  },
+  computed: {
+    sliderData () {
+      return this.$store.state.wuhan.workdayProperties
+    }
+  },
+  watch: {
+    sliderValue () {
+      console.log('sliderValue', this.sliderValue)
+      this.$store.commit('SET_TIMEPOINT', this.sliderValue)
     }
   },
   mounted () {},
