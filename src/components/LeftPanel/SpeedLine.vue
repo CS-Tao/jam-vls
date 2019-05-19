@@ -18,7 +18,7 @@ export default {
   props: {
     id: {
       type: String,
-      default: 'speedline'
+      default: 'speedline1'
     },
     width: {
       type: String,
@@ -29,13 +29,11 @@ export default {
       default: '100%'
     }
   },
-
   data () {
     return {
       chart: null
     }
   },
-
   mounted () {
     this.initChart()
   },
@@ -45,11 +43,6 @@ export default {
     }
     this.chart.dispose()
     this.chart = null
-  },
-  watch: {
-    num (newData, oldData) {
-      this.initChart()
-    }
   },
   methods: {
     initChart () {

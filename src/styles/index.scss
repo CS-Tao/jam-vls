@@ -1,5 +1,10 @@
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css');
-@import "./var.scss";
+@import './var.scss';
+
+@font-face {
+  font-family:'digital-clock-font';
+  src: './fonts/digital.ttf';
+}
 
 html, body {
   margin: 0;

@@ -137,9 +137,8 @@ export default {
               color: '#eee',
               rich: {}
             },
-            data: [{ value: 35.2, name: 'km/h' }]
-          },
-          {
+            data: [{ value: 2.35 * 3.6, name: 'km/h' }]
+          }, {
             name: '最高速',
             type: 'gauge',
             center: ['80%', '70%'],
@@ -194,7 +193,7 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 82.1, name: '最高速' }]
+            data: [{ value: 2.35 * 3.6, name: '最高速' }]
           },
           {
             name: '最低速',
@@ -251,7 +250,7 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 10, name: '最低速' }]
+            data: [{ value: 2.35 * 3.6, name: '最低速' }]
           }
         ]
       }

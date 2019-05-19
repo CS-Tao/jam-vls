@@ -4,6 +4,7 @@ import axios from 'axios'
 import store from './store'
 import '@/styles/index.scss'
 import './assets/svg'
+import './api/mock'
 
 Vue.config.productionTip = false
 Vue.axios = Vue.prototype.$axios = axios

@@ -23,6 +23,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.8.2",
     "mapbox-gl": "^0.54.0",
+    "mockjs": "^1.0.1-beta3",
     "pbf": "^3.2.0",
     "vue": "^2.5.2",
     "vue-slider-component": "^3.0.31",

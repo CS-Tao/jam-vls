@@ -1,20 +1,20 @@
 <template>
   <div class="wrapper">
-    <div class="btn" :class="activedIndex===0?'actived':null" @click="switchExperiment(0)">实验一</div>
-    <div class="btn" :class="activedIndex===1?'actived':null" @click="switchExperiment(1)">实验二</div>
+    <div class="btn" :class="activedItem==='wuhan'?'actived':null" @click="switchExperiment(0)">实验一</div>
+    <div class="btn" :class="activedItem==='chengdu'?'actived':null" @click="switchExperiment(1)">实验二</div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      activedIndex: 0
+  computed: {
+    activedItem () {
+      return this.$store.getters.experiment
     }
   },
   methods: {
     switchExperiment (index) {
-      this.$emit('switchExperiment', index)
+      this.$store.commit('SWITCH_EXPERIMENT', index)
     }
   }
 }

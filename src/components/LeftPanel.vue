@@ -1,21 +1,32 @@
 <template>
-  <div class="wrapper">
+  <div v-if="$store.getters.experiment === 'wuhan'" class="wrapper">
     <header class="header">
       <span>武汉市交通路网</span>
     </header>
-    <info/>
+    <roads-info/>
     <speed-line/>
+  </div>
+  <div v-else class="wrapper">
+    <header class="header">
+      <span>成都市交通路网</span>
+    </header>
+    <model-info/>
+    <predict-speed/>
   </div>
 </template>
 
 <script>
-import Info from './LeftPanel/Info'
+import RoadsInfo from './LeftPanel/RoadsInfo'
+import ModelInfo from './LeftPanel/ModelInfo'
 import SpeedLine from './LeftPanel/SpeedLine'
+import PredictSpeed from './LeftPanel/PredictSpeed'
 
 export default {
   components: {
     SpeedLine,
-    Info
+    RoadsInfo,
+    PredictSpeed,
+    ModelInfo
   }
 }
 </script>
