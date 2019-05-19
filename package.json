@@ -1,6 +1,6 @@
 {
   "name": "jam-vls",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "交通拥堵可视化",
   "author": "CS-Tao <whucstao@qq.com>",
   "private": true,
@@ -15,13 +15,19 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@deck.gl/core": "^7.0.6",
+    "@deck.gl/geo-layers": "^7.0.6",
+    "@deck.gl/layers": "^7.0.6",
+    "@mapbox/vector-tile": "^1.3.1",
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "element-ui": "^2.8.2",
     "mapbox-gl": "^0.54.0",
-    "svg-sprite-loader": "^4.1.6",
+    "mockjs": "^1.0.1-beta3",
+    "pbf": "^3.2.0",
     "vue": "^2.5.2",
-    "vue-slider-component": "^3.0.31"
+    "vue-slider-component": "^3.0.31",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -72,6 +78,7 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "svg-sprite-loader": "^4.1.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-jest": "^1.0.2",

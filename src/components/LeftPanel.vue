@@ -1,18 +1,32 @@
 <template>
-  <div class="wrapper">
+  <div v-if="$store.getters.experiment === 'wuhan'" class="wrapper">
     <header class="header">
       <span>武汉市交通路网</span>
     </header>
-    <speed-line></speed-line>
+    <roads-info/>
+    <speed-line/>
+  </div>
+  <div v-else class="wrapper">
+    <header class="header">
+      <span>成都市交通路网</span>
+    </header>
+    <model-info/>
+    <predict-speed/>
   </div>
 </template>
 
 <script>
+import RoadsInfo from './LeftPanel/RoadsInfo'
+import ModelInfo from './LeftPanel/ModelInfo'
 import SpeedLine from './LeftPanel/SpeedLine'
+import PredictSpeed from './LeftPanel/PredictSpeed'
 
 export default {
   components: {
-    SpeedLine
+    SpeedLine,
+    RoadsInfo,
+    PredictSpeed,
+    ModelInfo
   }
 }
 </script>
@@ -34,13 +48,15 @@ export default {
     padding: 14px;
     border-bottom: 1px solid rgb(64, 64, 66);
     & > span {
+      padding: 5px 8px;
+      border-radius: 2px;
       width: 50%;
       margin: 0 25%;
-      color: rgb(248, 248, 249);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
-        sans-serif;
+      color: $text-color-normal;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       font-size: 18px;
       font-weight: 900;
+      background-color: rgb(71, 178, 117);
       text-align: center;
     }
   }

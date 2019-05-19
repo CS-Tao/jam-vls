@@ -1,38 +1,24 @@
  <template>
-  <div :class="className" :id="id" :style="{height:height,width:width}"></div>
+  <div class="speedline" :id="id" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
 import echarts from 'echarts'
 import resize from '@/components/Utils/ChartResize'
 var category = []
-var dottedBase = +new Date()
-var lineData = []
-var barData = []
+var lineData = [7020, 5345, 3256, 3369, 4569, 3696, 2944, 5247, 5528, 6398, 7125, 5879]
+var barData = [3658, 1589, 555, 986, 1520, 2541, 1422, 2554, 2866, 3666, 4021, 2315]
 
-for (var i = 0; i < 20; i++) {
-  var date = new Date(dottedBase += 3600 * 24 * 1000)
-  category.push([
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate()
-  ].join('-'))
-  var b = Math.random() * 60 + 10
-  var d = Math.random() * 60 + 10
-  barData.push(b)
-  lineData.push(d + b)
+for (var i = 8; i < 20; i++) {
+  category.push(i > 10 ? `${i}:00` : `0${i}:00`)
 }
 
 export default {
   mixins: [resize],
   props: {
-    className: {
-      type: String,
-      default: 'chart'
-    },
     id: {
       type: String,
-      default: 'speedline'
+      default: 'speedline1'
     },
     width: {
       type: String,
@@ -43,13 +29,11 @@ export default {
       default: '100%'
     }
   },
-
   data () {
     return {
       chart: null
     }
   },
-
   mounted () {
     this.initChart()
   },
@@ -60,11 +44,6 @@ export default {
     this.chart.dispose()
     this.chart = null
   },
-  watch: {
-    num (newData, oldData) {
-      this.initChart()
-    }
-  },
   methods: {
     initChart () {
       this.chart = echarts.init(document.getElementById(this.id))
@@ -72,6 +51,9 @@ export default {
     },
     getOptions () {
       return {
+        grid: {
+          left: '15%'
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -79,7 +61,7 @@ export default {
           }
         },
         legend: {
-          data: ['Average speed', 'Max speed'],
+          data: ['车辆总数', '拥堵车辆数'],
           textStyle: {
             color: '#ccc'
           },
@@ -115,7 +97,7 @@ export default {
           },
           data: lineData
         }, {
-          name: 'Average speed',
+          name: '拥堵车辆数',
           type: 'bar',
           barWidth: 10,
           itemStyle: {
@@ -150,7 +132,7 @@ export default {
           z: -12,
           data: lineData
         }, {
-          name: 'Max speed',
+          name: '车辆总数',
           type: 'pictorialBar',
           symbol: 'rect',
           itemStyle: {
@@ -171,4 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.speedline {
+  min-height: 350px;
+}
 </style>

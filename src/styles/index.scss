@@ -1,9 +1,15 @@
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css');
-@import "./var.scss";
+@import './var.scss';
+
+@font-face {
+  font-family:'digital-clock-font';
+  src: './fonts/digital.ttf';
+}
 
 html, body {
   margin: 0;
   background-color: #000;
+  user-select: none;
   ::-webkit-scrollbar {
     width: 0;
   }
@@ -11,6 +17,7 @@ html, body {
 
 a.mapboxgl-ctrl-logo {
   margin-left: 350px;
+  z-index: 2;
 }
 .mapboxgl-ctrl-bottom-right {
   display: none;

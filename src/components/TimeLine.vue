@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <span>{{(new Date('2016-11-12')).toString()}}</span>
-    <div class="timeline-wrapper">
+    <span v-if="$store.getters.experiment === 'wuhan'">{{(new Date('2016-11-12')).toString()}}</span>
+    <div v-if="$store.getters.experiment === 'wuhan'" class="timeline-wrapper">
       <div @click="pause = !pause" class="btn">
         <svg-icon :icon-class="pause?'pause':'continue'"/>
       </div>
@@ -9,7 +9,8 @@
         <vue-slider
           class="slider"
           v-model="sliderValue"
-          :data="['A', 'B', 'C', 'D']"
+          :lazy="true"
+          :data="sliderData"
           :railStyle="{'backgroundColor': '#555', 'borderRadius': '4px'}"
           :processStyle="{'backgroundColor': '#050505'}"
           :labelStyle="{'backgroundColor': '#555'}"
@@ -18,30 +19,44 @@
         </vue-slider>
       </div>
     </div>
+    <speedLine v-else/>
     <footer></footer>
   </div>
 </template>
 
 <script>
+import SpeedLine from './TimeLine/SpeedLine'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 
 export default {
-  components: { VueSlider },
+  components: { VueSlider, SpeedLine },
   data () {
     return {
-      pause: true,
-      sliderValue: 1
+      pause: true
     }
   },
-  mounted () {},
-  methods: {
+  computed: {
+    sliderData () {
+      return this.$store.getters.timelineProperties
+    },
+    sliderValue: {
+      get () {
+        return this.$store.getters.timepoint
+      },
+      set (value) {
+        this.$store.commit('SET_TIMEPOINT', value)
+      }
+    }
+  },
+  beforeMount () {
+    this.$store.dispatch('initProperties', 222)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/var.scss";
+@import '@/styles/var.scss';
 .wrapper {
   position: fixed;
   top: $leftpanel-height;
@@ -54,7 +69,7 @@ export default {
   opacity: $panel-opacity;
   z-index: 1;
   padding-top: 15px;
-  color: rgb(248, 248, 249);
+  color: $text-color-normal;
   box-sizing: border-box;
   & > span {
     padding: 0 15px;

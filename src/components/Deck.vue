@@ -14,9 +14,9 @@ import Protobuf from 'pbf'
 const mapboxToken =
   'pk.eyJ1IjoiY3N0YW8iLCJhIjoiY2p1eThkYjgzMHNvbzQ0cnhqd3c3OTU1biJ9.vT96vIXE74LTVV4xXrv0Zw'
 
-const vectorUrl =
-  'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/wuhan_taxi_speed%3Amain_with_speed_all_wgs84@EPSG%3A4326@pbf'
-
+// const vectorUrl =
+//   'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/wuhan_taxi_speed%3Amain_with_speed_all_wgs84@EPSG%3A4326@pbf'
+const vectorUrl = 'http://localhost:7777/tiles'
 const INITIAL_VIEW_STATE = {
   latitude: 30.65,
   longitude: 114.3,
@@ -31,7 +31,7 @@ export default {
     mapboxgl.accessToken = mapboxToken
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/dark-v10',
+      style: 'mapbox://styles/cstao/cjvnekomn17g61dobaihww8d1',
       interactive: false,
       center: [INITIAL_VIEW_STATE.longitude, INITIAL_VIEW_STATE.latitude],
       zoom: INITIAL_VIEW_STATE.zoom,
@@ -93,18 +93,6 @@ export default {
               })
           }
         })
-        // new ArcLayer({
-        //   id: "arcs",
-        //   data: AIR_PORTS,
-        //   dataTransform: d =>
-        //     d.features.filter(f => f.properties.scalerank < 4),
-        //   // Styles
-        //   getSourcePosition: f => [-0.4531566, 51.4709959], // London
-        //   getTargetPosition: f => f.geometry.coordinates,
-        //   getSourceColor: [0, 128, 200],
-        //   getTargetColor: [200, 0, 80],
-        //   getWidth: 1
-        // })
       ]
     })
   }
