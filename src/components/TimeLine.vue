@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <span v-if="$store.getters.experiment === 'wuhan'">{{(new Date('2016-11-12')).toString()}}</span>
+  <div v-if="$store.getters.experiment === 'wuhan'" class="wrapper">
+    <span>{{(new Date('2016-11-12')).toString()}}</span>
     <div v-if="$store.getters.experiment === 'wuhan'" class="timeline-wrapper">
       <div @click="pause = !pause" class="btn">
         <svg-icon :icon-class="pause?'pause':'continue'"/>
@@ -19,8 +19,13 @@
         </vue-slider>
       </div>
     </div>
-    <speedLine v-else/>
     <footer></footer>
+  </div>
+  <div v-else class="wrapper">
+    <span>{{formatDate(new Date((new Date('2016-11-12 10:00:00')).valueOf() + 1000 * 60 * Math.floor($store.getters.velocites.velocites.length * ($store.getters.timespan[0] / 101))),  'yyyy年MM月dd日 hh时mm分')
+      + ' - '
+      + formatDate(new Date((new Date('2016-11-12 10:00:00')).valueOf() + 1000 * 60 * Math.floor($store.getters.velocites.velocites.length * ($store.getters.timespan[1] / 101))),  'yyyy年MM月dd日 hh时mm分')}}</span>
+    <speedLine/>
   </div>
 </template>
 
@@ -51,6 +56,27 @@ export default {
   },
   beforeMount () {
     this.$store.dispatch('initProperties', 222)
+  },
+  methods: {
+    formatDate (date, formatter = 'yyyy-MM-dd hh:mm:ss') {
+      var _complete = function (n) {
+        return (n > 9) ? n : '0' + n
+      }
+      var year = date.getFullYear()
+      var month = _complete(date.getMonth() + 1)
+      var day = _complete(date.getDate())
+      var hour = _complete(date.getHours())
+      var min = _complete(date.getMinutes())
+      var sec = _complete(date.getSeconds())
+      var result = formatter
+      result = result.replace('yyyy', year)
+      result = result.replace('MM', month)
+      result = result.replace('dd', day)
+      result = result.replace('hh', hour)
+      result = result.replace('mm', min)
+      result = result.replace('ss', sec)
+      return result
+    }
   }
 }
 </script>

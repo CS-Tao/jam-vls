@@ -1,5 +1,5 @@
  <template>
-  <div class="speedline" :id="id" :style="{height:height,width:width}"></div>
+  <div :id="id" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
@@ -54,12 +54,38 @@ export default {
     initChart () {
       this.chart = echarts.init(document.getElementById(this.id))
       this.chart.setOption(this.getOptions())
-      this.chart.on('mousemove', (params) => {
-        this.$store.commit('CHANGE_CURRENT_COLOR', params.color)
+      this.chart.on('datazoom', (params) => {
+        if (params.batch && params.batch.length) {
+          // inside 调用
+          this.$store.commit('TIMESPAN_CHANGED', {
+            start: params.batch[0].start,
+            end: params.batch[0].end
+          })
+        } else {
+          // slider 调用
+          this.$store.commit('TIMESPAN_CHANGED', {
+            start: params.start,
+            end: params.end
+          })
+        }
       })
     },
     getOptions () {
       return {
+        dataZoom: [
+          {
+            show: true,
+            realtime: true,
+            start: this.$store.getters.timespan[0],
+            end: this.$store.getters.timespan[1]
+          },
+          {
+            type: 'inside',
+            realtime: true,
+            start: this.$store.getters.timespan[0],
+            end: this.$store.getters.timespan[1]
+          }
+        ],
         visualMap: {
           show: false,
           type: 'continuous',
@@ -75,7 +101,15 @@ export default {
           ]
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          formatter: (params, ticket, callback) => {
+            if (!params[0].value) {
+              return null
+            }
+            return `${this.formatDate(
+              new Date((new Date('2016-11-12 10:00:00')).valueOf() +
+                1000 * 60 * parseInt(params[0].name)), 'hh时mm分')}: ${params[0].value.toFixed(2)}m/s`
+          }
         },
         xAxis: {
           data: this.dateList,
@@ -91,8 +125,8 @@ export default {
           }
         },
         grid: {
-          top: 0,
-          bottom: '10%',
+          top: '10%',
+          bottom: '50%',
           left: '2%',
           right: '2%'
         },
@@ -102,13 +136,26 @@ export default {
           data: this.valueList
         }
       }
+    },
+    formatDate (date, formatter = 'yyyy-MM-dd hh:mm:ss') {
+      var _complete = function (n) {
+        return (n > 9) ? n : '0' + n
+      }
+      var year = date.getFullYear()
+      var month = _complete(date.getMonth() + 1)
+      var day = _complete(date.getDate())
+      var hour = _complete(date.getHours())
+      var min = _complete(date.getMinutes())
+      var sec = _complete(date.getSeconds())
+      var result = formatter
+      result = result.replace('yyyy', year)
+      result = result.replace('MM', month)
+      result = result.replace('dd', day)
+      result = result.replace('hh', hour)
+      result = result.replace('mm', min)
+      result = result.replace('ss', sec)
+      return result
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.speedline {
-  // min-height: 200px;
-}
-</style>

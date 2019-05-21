@@ -15,7 +15,8 @@ const app = {
       sourceLayerName: 'main_with_speed_hour_Project',
       tileLayerURL: 'http://localhost:8080/geoserver/gwc/service/tms/1.0.0/wuhan_taxi_speed%3Amain_with_speed_hour_Project@EPSG%3A900913@pbf',
       center: [114.2, 30.5],
-      initZoom: 10
+      initZoom: 10,
+      timespan: [30, 70]
     },
     chengdu: {
       timepoint: 0,
@@ -30,7 +31,15 @@ const app = {
         interval: 1,
         velocites: []
       },
-      currentColor: 'white'
+      currentColor: 'white',
+      timespan: [30, 70],
+      predictVelocity: -1,
+      predictVelocities: {
+        routeId: 17256,
+        beginTime: 0,
+        interval: 1,
+        velocites: []
+      }
     }
   },
   mutations: {
@@ -66,6 +75,15 @@ const app = {
     },
     CHANGE_CURRENT_COLOR: (state, color) => {
       state['chengdu'].currentColor = color
+    },
+    CHANGE_PREDICT_VELOCITY: (state, predictVelocity) => {
+      state['chengdu'].predictVelocity = predictVelocity
+    },
+    CHANGE_PREDICT_VELECITIES: (state, velocities) => {
+      state['chengdu'].predictVelocities = velocities
+    },
+    TIMESPAN_CHANGED: (state, timespan) => {
+      state[state.experiment].timespan = [timespan.start, timespan.end]
     }
   },
   actions: {

@@ -26,13 +26,42 @@ export default {
       default: '100%'
     }
   },
-
   data () {
     return {
       chart: null
     }
   },
-
+  computed: {
+    isms () {
+      return this.$store.getters.experiment === 'chengdu'
+    },
+    velocity () {
+      return this.$store.getters.currentVelocity * (this.isms ? 3.6 : 1)
+    },
+    minV () {
+      return this.$store.getters.minVelocity * (this.isms ? 3.6 : 1)
+    },
+    maxV () {
+      return this.$store.getters.maxVelocity * (this.isms ? 3.6 : 1)
+    },
+    predictVelocity () {
+      return this.$store.getters.predictVelocity * (this.isms ? 3.6 : 1)
+    }
+  },
+  watch: {
+    velocity () {
+      this.chart.setOption(this.getOptions())
+    },
+    minV () {
+      this.chart.setOption(this.getOptions())
+    },
+    maxV () {
+      this.chart.setOption(this.getOptions())
+    },
+    predictVelocity () {
+      this.chart.setOption(this.getOptions(this.predictVelocity))
+    }
+  },
   mounted () {
     this.initChart()
   },
@@ -43,17 +72,15 @@ export default {
     this.chart.dispose()
     this.chart = null
   },
-  watch: {
-    num (newData, oldData) {
-      this.initChart()
-    }
-  },
   methods: {
     initChart () {
       this.chart = echarts.init(document.getElementById(this.id))
       this.chart.setOption(this.getOptions())
     },
-    getOptions () {
+    getOptions (v, minV, maxV) {
+      v = v === undefined ? this.velocity : v
+      minV = minV === undefined ? this.minV : minV
+      maxV = maxV === undefined ? this.maxV : maxV
       return {
         tooltip: {
           formatter: '{a} <br/>{c} {b}'
@@ -66,9 +93,9 @@ export default {
             name: '平均速度',
             type: 'gauge',
             z: 3,
-            min: 0,
-            max: 120,
-            splitNumber: 12,
+            min: Math.floor(minV),
+            max: Math.ceil(maxV),
+            splitNumber: Math.floor((Math.ceil(maxV) - Math.floor(minV)) / 10),
             radius: '80%',
             axisLine: {
               // 坐标轴线
@@ -137,7 +164,10 @@ export default {
               color: '#eee',
               rich: {}
             },
-            data: [{ value: 2.35 * 3.6, name: 'km/h' }]
+            data: [{
+              value: v.toFixed(2),
+              name: 'km/h'
+            }]
           }, {
             name: '最高速',
             type: 'gauge',
@@ -193,7 +223,10 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 2.35 * 3.6, name: '最高速' }]
+            data: [{
+              value: maxV.toFixed(2),
+              name: 'km/h'
+            }]
           },
           {
             name: '最低速',
@@ -250,7 +283,10 @@ export default {
             detail: {
               show: false
             },
-            data: [{ value: 2.35 * 3.6, name: '最低速' }]
+            data: [{
+              value: minV.toFixed(2),
+              name: 'km/h'
+            }]
           }
         ]
       }

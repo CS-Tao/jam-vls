@@ -9,7 +9,20 @@ const getters = {
   mapCenter: state => state.app[state.app.experiment].center,
   mapInitZoom: state => state.app[state.app.experiment].initZoom,
   velocites: state => state.app['chengdu'].velocites,
-  currentColor: state => state.app['chengdu'].currentColor
+  currentColor: state => state.app['chengdu'].currentColor,
+  minVelocity: state => Math.min(...state.app['chengdu'].velocites.velocites.filter((_, index) => {
+    return index >= Math.floor(state.app['chengdu'].velocites.velocites.length * (state.app['chengdu'].timespan[0] / 101)) &&
+      index <= Math.floor(state.app['chengdu'].velocites.velocites.length * (state.app['chengdu'].timespan[1] / 101))
+  })),
+  maxVelocity: state => Math.max(...state.app['chengdu'].velocites.velocites.filter((_, index) => {
+    return index >= Math.floor(state.app['chengdu'].velocites.velocites.length * (state.app['chengdu'].timespan[0] / 101)) &&
+      index <= Math.floor(state.app['chengdu'].velocites.velocites.length * (state.app['chengdu'].timespan[1] / 101))
+  })),
+  timespan: state => state.app[state.app.experiment].timespan,
+  predictVelocity: state => state.app['chengdu'].predictVelocity,
+  predictVelocities: state => state.app['chengdu'].predictVelocities,
+  currentVelocity: state => state.app['chengdu'].velocites
+    .velocites[Math.floor(state.app['chengdu'].velocites.velocites.length * (state.app['chengdu'].timespan[1] / 101))]
 }
 
 export default getters

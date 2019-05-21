@@ -1,5 +1,5 @@
  <template>
-  <div class="predict-speed" :id="id" :style="{height:height,width:width}"></div>
+  <div :id="id" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
@@ -43,10 +43,12 @@ export default {
     async initChart () {
       try {
         this.chartData = (await chengduApi.predictvelocites(17256, 10)).data
+        this.$store.commit('CHANGE_PREDICT_VELECITIES', this.chartData)
         this.chart = echarts.init(document.getElementById(this.id))
         this.chart.setOption(this.getOptions())
-        this.chart.on('click', (params) => {
+        this.chart.on('click', {dataType: 'node'}, (params) => {
           this.$store.commit('CHANGE_CURRENT_COLOR', params.color)
+          this.$store.commit('CHANGE_PREDICT_VELOCITY', params.value)
         })
       } catch (e) {
         console.error(e.message)
@@ -57,7 +59,7 @@ export default {
         title: {
           top: '5%',
           left: 'center',
-          text: '道路速度预测',
+          text: `道路速度预测 (id: ${this.chartData.routeId})`,
           textStyle: {
             color: '#fff',
             fontSize: 16
@@ -74,10 +76,6 @@ export default {
             if (!params.value) {
               return null
             }
-            // eslint-disable-next-line
-            callback(ticket, () => {
-              console.log(params.value)
-            })
             return `未来第${params.name}分钟的道路速度为<br/>${params.value.toFixed(2)}m/s`
           }
         },
@@ -150,8 +148,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.predict-speed {
-}
-</style>

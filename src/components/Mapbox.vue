@@ -31,7 +31,8 @@ export default {
       center: 'mapCenter',
       initZoom: 'mapInitZoom',
       velocites: 'velocites',
-      currentColor: 'currentColor'
+      currentColor: 'currentColor',
+      timespan: 'timespan'
     }),
     currentProperty () {
       return this.$store.getters.timepoint
@@ -43,13 +44,26 @@ export default {
     },
     currentProperty () {
       if (this.experiment === 'wuhan') {
-        requestAnimationFrame(this.changeAllColorByProp)
+        requestAnimationFrame(() => this.changeAllColorByProp())
       } else {
-        requestAnimationFrame(this.changeColorById)
+        requestAnimationFrame(() => this.changeColorById())
       }
     },
     currentColor () {
-      this.changeColorById()
+      requestAnimationFrame(() => this.changeColorById())
+    },
+    timespan () {
+      var minV = Math.min(...this.velocites.velocites)
+      var maxV = Math.max(...this.velocites.velocites)
+      var v = this.velocites.velocites[Math.floor(this.velocites.velocites.length * (this.timespan[1] / 101))]
+      var currentColor = [
+        '#196127',
+        '#239a3b',
+        '#7bc96f',
+        '#7bc96f',
+        '#ffffff'
+      ][Math.floor(v / (maxV - minV) * 5)]
+      this.$store.commit('CHANGE_CURRENT_COLOR', currentColor)
     }
   },
   mounted () {
@@ -73,24 +87,29 @@ export default {
         this.map.setPaintProperty(layerId, 'line-color', gradientColor)
       }
     },
-    changeColorById () {
+    changeColorById (id, color) {
+      id = id === undefined ? this.velocites.routeId : id
+      color = color || this.currentColor
+      if (!color || id === undefined) {
+        return
+      }
       if (this.map && this.map.isStyleLoaded()) {
         this.map.setPaintProperty(layerId, 'line-color', [
           'step',
           ['get', 'fid_1'],
           'white',
-          this.velocites.routeId,
-          this.currentColor,
-          this.velocites.routeId + 1,
+          id,
+          color,
+          id + 1,
           'white'
         ])
         this.map.setPaintProperty(layerId, 'line-width', [
           'step',
           ['get', 'fid_1'],
           1,
-          this.velocites.routeId,
+          id,
           10,
-          this.velocites.routeId + 1,
+          id + 1,
           1
         ])
       }
@@ -202,7 +221,7 @@ export default {
                 ['get', 'fid_1'],
                 1,
                 this.velocites.routeId,
-                5,
+                10,
                 this.velocites.routeId + 1,
                 1
               ]

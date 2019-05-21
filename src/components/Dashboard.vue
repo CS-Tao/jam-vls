@@ -1,14 +1,18 @@
 <template>
   <div class="wrapper">
-    <speedometer></speedometer>
+    <speedometer0 v-if="$store.getters.experiment === 'wuhan'"></speedometer0>
+    <speedometer1 v-else></speedometer1>
   </div>
 </template>
 
 <script>
-import Speedometer from './Dashboard/Speedometer'
+import Speedometer0 from './Dashboard/Speedometer.0'
+import Speedometer1 from './Dashboard/Speedometer.1'
+
 export default {
   components: {
-    Speedometer
+    Speedometer0,
+    Speedometer1
   }
 }
 </script>
